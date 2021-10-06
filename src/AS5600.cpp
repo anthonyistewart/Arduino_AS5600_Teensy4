@@ -2,11 +2,11 @@
 /****************************************************
   AMS 5600 class for Arduino platform
   Author: Tom Denton
-  Date: 15 Dec 2014 
+  Date: 15 Dec 2014
   File: AMS_5600.cpp
   Version 1.00
   www.ams.com
-   
+
   Description:  This class has been designed to
   access the AMS 5600 “potuino” shield.
 *****************************************************/
@@ -127,7 +127,7 @@ word AMS_5600::getMaxAngle()
   Out: value of start position register
   Description: sets a value in start position register.
   If no value is provided, method will read position of
-  magnet.  
+  magnet.
 *******************************************************/
 word AMS_5600::setStartPosition(word startAngle)
 {
@@ -164,7 +164,7 @@ word AMS_5600::getStartPosition()
   Out: value of end position register
   Description: sets a value in end position register.
   If no value is provided, method will read position of
-  magnet.  
+  magnet.
 *******************************************************/
 word AMS_5600::setEndPosition(word endAngle)
 {
@@ -211,7 +211,7 @@ word AMS_5600::getRawAngle()
   In: none
   Out: value of scaled angle register
   Description: gets scaled value of magnet position.
-  start, end, or max angle settings are used to 
+  start, end, or max angle settings are used to
   determine value
 *******************************************************/
 word AMS_5600::getScaledAngle()
@@ -223,7 +223,7 @@ word AMS_5600::getScaledAngle()
   Method: detectMagnet
   In: none
   Out: 1 if magnet is detected, 0 if not
-  Description: reads status register and examines the 
+  Description: reads status register and examines the
   MH bit
 *******************************************************/
 int AMS_5600::detectMagnet()
@@ -299,7 +299,7 @@ word AMS_5600::getMagnitude()
   In: none
   Out: value of zmco register
   Description: determines how many times chip has been
-  permanently written to. 
+  permanently written to.
 *******************************************************/
 int AMS_5600::getBurnCount()
 {
@@ -377,13 +377,13 @@ int AMS_5600::burnMaxAngleAndConfig()
 int AMS_5600::readOneByte(int in_adr)
 {
   int retVal = -1;
-  Wire.beginTransmission(_ams5600_Address);
-  Wire.write(in_adr);
-  Wire.endTransmission();
-  Wire.requestFrom(_ams5600_Address, 1);
-  while (Wire.available() == 0)
+  Wire1.beginTransmission(_ams5600_Address);
+  Wire1.write(in_adr);
+  Wire1.endTransmission();
+  Wire1.requestFrom(_ams5600_Address, 1);
+  while (Wire1.available() == 0)
     ;
-  retVal = Wire.read();
+  retVal = Wire1.read();
 
   return retVal;
 }
@@ -399,24 +399,24 @@ word AMS_5600::readTwoBytes(int in_adr_hi, int in_adr_lo)
   word retVal = -1;
 
   /* Read Low Byte */
-  Wire.beginTransmission(_ams5600_Address);
-  Wire.write(in_adr_lo);
-  Wire.endTransmission();
-  Wire.requestFrom(_ams5600_Address, 1);
-  while (Wire.available() == 0)
+  Wire1.beginTransmission(_ams5600_Address);
+  Wire1.write(in_adr_lo);
+  Wire1.endTransmission();
+  Wire1.requestFrom(_ams5600_Address, 1);
+  while (Wire1.available() == 0)
     ;
-  int low = Wire.read();
+  int low = Wire1.read();
 
   /* Read High Byte */
-  Wire.beginTransmission(_ams5600_Address);
-  Wire.write(in_adr_hi);
-  Wire.endTransmission();
-  Wire.requestFrom(_ams5600_Address, 1);
+  Wire1.beginTransmission(_ams5600_Address);
+  Wire1.write(in_adr_hi);
+  Wire1.endTransmission();
+  Wire1.requestFrom(_ams5600_Address, 1);
 
-  while (Wire.available() == 0)
+  while (Wire1.available() == 0)
     ;
 
-  word high = Wire.read();
+  word high = Wire1.read();
 
   high = high << 8;
   retVal = high | low;
@@ -432,10 +432,10 @@ word AMS_5600::readTwoBytes(int in_adr_hi, int in_adr_lo)
 *******************************************************/
 void AMS_5600::writeOneByte(int adr_in, int dat_in)
 {
-  Wire.beginTransmission(_ams5600_Address);
-  Wire.write(adr_in);
-  Wire.write(dat_in);
-  Wire.endTransmission();
+  Wire1.beginTransmission(_ams5600_Address);
+  Wire1.write(adr_in);
+  Wire1.write(dat_in);
+  Wire1.endTransmission();
 }
 
 /**********  END OF AMS 5600 CALSS *****************/
