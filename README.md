@@ -6,9 +6,9 @@ Features:
 - Get magnetic intensity
 - Get the Angle information
 
-## operation menual
+## Operation Manual
 
-You can do full function with fullfucton demo
+You can do full function with fullfuction demo
 ```
 AS5600 Serial Interface Program
 
